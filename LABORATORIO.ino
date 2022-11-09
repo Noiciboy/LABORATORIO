@@ -1,9 +1,10 @@
-void setup() {
-  // put your setup code here, to run once:
+#include <Arduino.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include "DHT.h"
+#include <ESP32_MailClient.h>
 
-}
+#define DHTPIN 15
+#define DHTTYPE DHT11
 
-void loop() {
-  // put your main code here, to run repeatedly:
-
-}
+DHT dht(DHTPIN, DHTTYPE);
