@@ -1,6 +1,32 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include "DHT.h"
+#include <ESP32_MailClient.h>
+
+#define DHTPIN 15
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+// defino variables 
+
+long duration;
+int D_ant,Distance,bandera,mnum,BANDERA;
+int LED = 13; 
+int LED1 = 12;
+int VENT = 14;  
+int LED_MAIL = 18;     //para prender el led indicador que se envio el mensaje
+int BOTON = 0;     //
+int mnuman = 0;
+int SENSOR = 4; // entrada del boton 
+
+String stringdistance,str,pta,hum,tmp,tem,mens,PUERTA,EMAIL;
+float  t,h,h_ant,t_ant;
+
+SMTPData datosSMTP;
+
+
 
 
 //**************
@@ -10,8 +36,11 @@ const char *mqtt_server = "node02.myqtthub.com";
 const int mqtt_port = 1883;
 const char *mqtt_user = "32";
 const char *mqtt_pass = "32";
-const char *root_topic_subscribe = "Temperatura/esp32";
-const char *root_topic_publish = "Temperatura/public_esp32";
+const char *root_topic_subscribe = "MODULO_PC/esp32";
+const char *root_topic_publish = "Estado/public_esp32";
+const char *root_topic_publish2 = "Estado/puerta";
+const char *root_topic_publish3 = "Estado/humedad";
+const char *root_topic_publish4 = "Estado/temperatura";
 
 
 //**************
