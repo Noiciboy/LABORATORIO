@@ -46,8 +46,8 @@ const char *root_topic_publish4 = "Estado/temperatura";
 //**************
 //**** WIFICONFIG ******
 //**************
-const char* ssid = "UNISANGIL YOPAL";
-const char* password =  "";
+const char* ssid = "MARTES";
+const char* password =  "1007747398N@t";
 
 
 
