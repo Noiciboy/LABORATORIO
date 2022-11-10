@@ -213,3 +213,81 @@ void callback(char* topic, byte* payload, unsigned int length){
   Serial.println("Mensaje -> " + incoming);
   actuadores();   // llama la funcion y dependiendo la orden ejecuta
 }
+
+   void actuadores()                                                // funcion ""
+      { 
+          if (mens == "p0")
+             {  Serial.println("peticion para abrir puerta" );
+                mens = " ";
+                digitalWrite(LED1, HIGH);
+                correo();
+                
+             }
+           if (mens == "p1")
+             {  Serial.println("peticion para cerrar puerta" );
+                mens = " ";
+                digitalWrite(LED1, LOW);
+                PUERTA= "CERRADA"; 
+             } 
+           if (mens == "b0")
+             {
+                digitalWrite(LED1, HIGH); 
+                Serial.println("entro al b0"); 
+             } 
+           if (mens == "b1")
+             {
+                digitalWrite(LED1, LOW); 
+                Serial.println("entro al b1"); 
+             } 
+           if (mens == "c0")
+             {
+                digitalWrite(VENT, LOW); 
+                Serial.println("entro al b0"); 
+             } 
+           if (mens == "c1")
+             {
+                digitalWrite(VENT, HIGH); 
+                Serial.println("entro al b1"); 
+             }   
+           if (mens[0] == 't' && mens[1] == 'e' && mens[2] == 'm' && mens[3] == ':')
+             {
+             mnum = ((mens[4]-48)*10) +mens[5]-48;                                 //guardo el numero para usarlo en la temperatura
+                  if (t>=mnum) 
+                     {
+                      digitalWrite(VENT, HIGH);          //prendo el ventilaror(trabaja con ceros)
+                      Serial.println(mnum);
+                      delay(1000); 
+                     } 
+                  else  digitalWrite(VENT, LOW);  
+                  
+                if(mnum != mnuman)
+                {
+                  BANDERA = 1;       //si cambio la tempratura 
+                }
+                mnuman = mnum;                       //para que no entre si no cuando la temperatura cambie             
+                                         
+             }  
+      }  
+
+       void correo()
+  { 
+    Serial.println("Iniciando correo!!!");
+    delay(1000);
+    Serial.println("SE ACABA DE ABRIR LA PUERTA");
+    PUERTA= "ABIERTA";
+     if(BANDERA==1)
+      digitalWrite(LED_MAIL, HIGH); 
+//    datosSMTP.setLogin("smtp.gmail.com", 465, "mqttunisangil2022@gmail.com", "unisangil2022.");//Configuración del servidor de correo electrónico SMTP, host, puerto, cuenta y contraseña
+//    datosSMTP.setSender("NOICIBOY_ESP32", "mqttunisangil2022@gmail.com");     //coloca el nombre del que envia el mensaje y el correo electrónico
+//    datosSMTP.setPriority("High");// Establezca la prioridad o importancia del correo electrónico High, Normal, Low o 1 a 5 (1 es el más alto)
+//    datosSMTP.setSubject("ALERTA DE SEGURIDAD");               // Establecer el asunto
+//    datosSMTP.setMessage(EMAIL, false);// escribe el contenido del correo
+//    datosSMTP.addRecipient("cristianavila@unisangil.edu.co");   // aqui se envia el correo al destinatario     
+//    if (!MailClient.sendMail(datosSMTP))                       //si tiene datos comience a enviar correo electrónico.
+//    Serial.println("Error enviando el correo, " + MailClient.smtpErrorReason());
+//    datosSMTP.empty();           //Borrar todos los datos del objeto datosSMTP para liberar memoria
+      delay(1000);
+     digitalWrite(LED_MAIL, LOW);
+//     peticion=0;
+     BANDERA==0;
+  } 
