@@ -75,23 +75,67 @@ void setup() {
   setup_wifi();
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
+
+    pinMode(LED, OUTPUT);
+    pinMode(LED1, OUTPUT);
+    pinMode(VENT, OUTPUT);
+    pinMode(LED_MAIL, OUTPUT);    
+    pinMode(SENSOR, INPUT);     //Pulsador o sensor como entrada   
+    digitalWrite(LED_MAIL, LOW);
+    digitalWrite(LED, HIGH);
+    dht.begin();             //inicio el modulo dht11
+    int peticion ;
+  
 }
 
 void loop() {
   
-  if (!client.connected()) {
+  if (!client.connected()) // si el cliente no se conecta entra
+  {
     reconnect();
   }
 
   if (client.connected()){
-    String str = "La cuenta es -> " + String(count);
-    str.toCharArray(msg,25);
-    client.publish(root_topic_publish,msg);
-    count++;
-    Serial.println(msg);
-    delay(3000);
-  }
+
+         h = dht.readHumidity();
+         t = dht.readTemperature();      
+         tem = "Temperatura: "+ String (t) +"°C "+"Humedad: "+ h +"% PUERTA: "+PUERTA;
+         pta = "PUERTA: "+ PUERTA;
+         hum = "Humedad: "+ String (h) +"%";
+         tmp = "Temperatura: "+ String (t) +"°C ";
+         delay (500); 
+             tem.toCharArray(msg,75);                 //convierta str en arreclo char con 57 carateres 
+             client.publish(root_topic_publish,msg);
+             pta.toCharArray(npt,25);                 //convierta str en arreclo char con 57 carateres 
+             client.publish(root_topic_publish2,npt);
+             hum.toCharArray(nht,25);                 //convierta str en arreclo char con 57 carateres 
+             client.publish(root_topic_publish3,nht);
+             tmp.toCharArray(ntt,25);                 //convierta str en arreclo char con 57 carateres 
+             client.publish(root_topic_publish4,ntt);
+             
+                      if (t>=mnum) 
+                     {
+                      digitalWrite(VENT, HIGH);          //prendo el ventilaror(trabaja con ceros)
+                      delay(1000); 
+                     } 
+                  else  digitalWrite(VENT, LOW); 
+            
+               
+          h_ant=h;          //guarda el cmabio anterior
+          t_ant=t;
+          
+          delay(1000);
+          
+    digitalWrite(LED_MAIL, LOW);        
+          actuadores();
+       }
+       
+Serial.println(msg);
+Serial.println(npt);
+delay(5000);
   client.loop();
+  
+    
 }
 
 
