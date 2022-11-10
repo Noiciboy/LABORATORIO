@@ -175,7 +175,7 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Intentando conexión Broker...");
     // Creamos un cliente ID
-    String clientId = "ESP_32";
+    String clientId = "ESP_32_1";
     
     // Intentamos conectar
     if (client.connect(clientId.c_str(),mqtt_user,mqtt_pass)) {
