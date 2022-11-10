@@ -208,7 +208,8 @@ void callback(char* topic, byte* payload, unsigned int length){
   for (int i = 0; i < length; i++) {
     incoming += (char)payload[i];
   }
+  mens=incoming;         //guardo en una variable para poder usarlo  como lectura
   incoming.trim();
   Serial.println("Mensaje -> " + incoming);
-
+  actuadores();   // llama la funcion y dependiendo la orden ejecuta
 }
