@@ -42,14 +42,13 @@ const char *root_topic_publish2 = "Estado/puerta";
 const char *root_topic_publish3 = "Estado/humedad";
 const char *root_topic_publish4 = "Estado/temperatura";
 
-
 //**************
 //**** WIFICONFIG ******
 //**************
 const char* ssid = "MARTES";
-const char* password =  "1007747398N@t";git
+const char* password =  "1007747398N@t";
 
-
+ 
 
 //**************
 //**** GLOBALES   ******
@@ -62,6 +61,7 @@ char nht[25];
 char ntt[25];
 
 //long count=0;
+
 
 //********
 //* F U N C I O N E S **
@@ -137,10 +137,7 @@ delay(5000);
   
     
 }
-
-
-
-
+    
 //***********
 //*    CONEXION WIFI      *
 //***********
