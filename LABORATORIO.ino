@@ -47,7 +47,7 @@ const char *root_topic_publish4 = "Estado/temperatura";
 //**** WIFICONFIG ******
 //**************
 const char* ssid = "MARTES";
-const char* password =  "1007747398N@t";
+const char* password =  "1007747398N@t";git
 
 
 
@@ -56,9 +56,12 @@ const char* password =  "1007747398N@t";
 //**************
 WiFiClient espClient;
 PubSubClient client(espClient);
-char msg[25];
-long count=0;
+char msg[75];
+char npt[25];
+char nht[25];
+char ntt[25];
 
+//long count=0;
 
 //********
 //* F U N C I O N E S **
